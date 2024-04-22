@@ -1,0 +1,33 @@
+.main{
+    background-color:#393E46;
+}
+.icon-bar{
+    width: 4%;
+    height: 4%;
+    min-height: 50px;
+    min-width: 60px;
+}
+.mainimage{
+    width: 25%;
+    height: auto;
+    min-width: 600px;
+
+}
+.center{
+    max-width: fit-content;
+    margin: auto;
+}
+
+.rcorners1 {
+    border-radius: 25px;
+    background: linear-gradient(#C00000,#5B0054);
+    padding: 20px;
+    width: 200px;
+    height: 150px;
+}
+
+.img-fluid{
+    width: 100%;
+    height: auto;
+    /*min-width: 600px;*/
+}
