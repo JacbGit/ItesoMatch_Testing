@@ -27,7 +27,22 @@
 }
 
 .img-fluid{
-    width: 100%;
+    width: 200%;
     height: auto;
-    /*min-width: 600px;*/
+}
+
+.container{
+    height: 100vh;
+}
+
+.custom-box {
+    height: 100%;
+    padding: 20px;
+    color: white;
+}
+
+.button-crear {
+    font-size: 1.5em;
+    padding: 10%;
+    margin: 8%;
 }
