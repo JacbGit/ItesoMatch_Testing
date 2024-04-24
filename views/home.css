@@ -47,3 +47,27 @@
     padding: 10%;
     margin: 8%;
 }
+
+.icon-modal{
+    width: 1%;
+    height: auto;
+    min-width: 40px;
+}
+
+.modal-dialog {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    min-height: 100vh; /* Altura mínima toma toda la pantalla */
+    padding-bottom: 10vh;
+}
+
+.modal-content {
+    outline: .5em solid #5B0054; /* Contorno grueso */
+    width: 75%; /* Ancho del modal */
+}
+
+.center-button {
+    display: block; /* Hace que el botón sea un bloque para aplicar márgenes automáticos */
+    margin: 0 auto; /* Centra el botón horizontalmente */
+}
