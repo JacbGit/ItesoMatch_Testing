@@ -54,7 +54,7 @@ document.querySelector('#swipeContainer').innerHTML = String.raw`
                     </p>
                     <div class="separator w-full my"></div>
                     <div>
-                        <img src="../assets/karen.jpeg" style="height: 300px; width:300px">
+                        <img src="../assets/karen.jpeg" style="max-height: 300px; width:100%">
                     </div>
                 </div>
             </div>

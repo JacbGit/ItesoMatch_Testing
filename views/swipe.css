@@ -79,6 +79,20 @@
       border-radius: 8px;
       padding: 10px;
   }
+
+  .description {
+    width: 50%
+  }
+
+@media (max-width: 768px){
+    .card {
+        width: 100%;
+    }
+
+    .description {
+        width: 100%
+    }
+}
   
   .card__title {
       color:white;
