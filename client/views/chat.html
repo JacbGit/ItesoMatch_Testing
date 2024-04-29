@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="home.css">
     <link href="https://db.onlinewebfonts.com/c/22db60d19480ba0274c9eb6ba877ea9b?family=Aharoni+Bold+V1"
         rel="stylesheet">
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
 </head>
 
 <body style="background-color: #393E46;">
@@ -118,16 +119,9 @@
                         <div class="col bg-primary p-2" style="height: 10%;">
                             <h2>Andrea 😍</h2>
                         </div>
-                        <div class="d-flex flex-column m-0 p-0 gap-2" style="height: 80%; overflow: auto;">
-                            <div class="d-flex justify-content-end">
-                                <div class="chat w-50 rounded-pill bg-white text-black p-2">
-                                    asd
-                                </div>
-                            </div>
+                        <div id="chatContainer" class="d-flex flex-column m-0 p-0 gap-2"
+                            style="height: 80%; overflow: auto;">
 
-                            <div class="chat w-50 rounded-pill bg-white text-black p-2">
-                                asd
-                            </div>
                             <div class="d-flex justify-content-end">
                                 <div class="chat w-50 rounded-pill bg-white text-black p-2">
                                     asd
@@ -194,8 +188,8 @@
                         </div>
 
                         <div class="col bg-primary p-2 d-flex" style="height: 10%;">
-                            <input type="text" class="w-100">
-                            <button class="btn btn-success">Enviar</button>
+                            <input type="text" class="w-100" id="msgInput">
+                            <button class="btn btn-success" id="sendBtn">Enviar</button>
                         </div>
 
                     </div>
@@ -215,6 +209,7 @@
         crossorigin="anonymous"></script>
     <!-- FontAwesome library-->
     <script src="https://kit.fontawesome.com/80b9330a37.js" crossorigin="anonymous"></script>
+    <script src="chat.js"></script>
 </body>
 
 </html>
