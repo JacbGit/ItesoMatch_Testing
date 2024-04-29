@@ -40,10 +40,10 @@ document.querySelector('#swipeContainer').innerHTML = String.raw`
             <div class="card relative card__animate" id="card">
                 <div class="w-full h-full absolute z-index-10">
                     <div class="flex justify-center w-100 h-full">
-                        <div class="w-50 h-full" id="cardLeftTrigger">
+                        <div class="w-50 h-full bg-danger opacity-25" id="cardLeftTrigger">
                             
                         </div>
-                        <div class="w-50 h-full" id="cardRightTrigger">
+                        <div class="w-50 h-full bg-success opacity-25" id="cardRightTrigger">
                             
                         </div>
                     </div>
