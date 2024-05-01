@@ -85,28 +85,28 @@
             <div class="modal-content w-75">
                 <div class="modal-header">
                     <img src="../assets/crush iteso2.png" class="icon-modal">
-                    <h5 class="modal-title ms-auto" id="exampleModalLabel1">Sign in</h5>
+                    <h5 class="modal-title ms-auto" id="exampleModalLabel1">Acceder</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-4">
 
-                    <form>
+                    <form id="LoginForm">
                         <!-- Email input -->
                         <div class="form-outline mb-4">
-                            <label class="form-label" for="email1">Email address</label>
+                            <label class="form-label" for="email1">Email</label>
                             <input type="email" id="email1" class="form-control" required>
                         </div>
 
                         <!-- password input -->
                         <div class="form-outline mb-4">
-                            <label class="form-label" for="password1">Password</label>
+                            <label class="form-label" for="password1">Contraseña</label>
                             <input type="password" id="password1" class="form-control" required>
                         </div>
 
                         <!-- Submit button -->
-                        <h6> Don't have an acount <a href="#" data-bs-toggle="modal"
-                                data-bs-target="#registrationModal">Register</a> </h6>
-                        <button type="submit" class="btn btn-primary btn-block center-button">Login</button>
+                        <h6> No tienes cuenta? <a href="#" data-bs-toggle="modal"
+                                data-bs-target="#registrationModal">Registrate</a> </h6>
+                        <button type="submit" class="btn btn-primary btn-block center-button">Mandar</button>
                     </form>
                 </div>
             </div>
@@ -126,31 +126,27 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <img src="../assets/crush iteso2.png" class="icon-modal">
-                    <h5 class="modal-title ms-auto" id="registrationModalLabel">Register</h5>
+                    <h5 class="modal-title ms-auto" id="registrationModalLabel">Registrate</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
 
                     <!-- Registration Form -->
 
-                    <form>
+                    <form id="RegisterForm">
                         <div class="container">
                             <div class="row mb-3">
                                 <div class="col">
-                                    <input placeholder="Username" type="text" class="form-control" id="username"
+                                    <input placeholder="Usuario" type="text" class="form-control" id="username"
                                         required>
                                 </div>
-                                <div class="col-4">
-                                    <input placeholder="Edad" type="number" class="form-control" id="username" required>
+                                <div class="col">
+                                    <input placeholder="Edad" type="number" class="form-control" id="edad" required>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col">
-                                    <input placeholder="Nombre(s)" type="text" class="form-control" id="username"
-                                        required>
-                                </div>
-                                <div class="col">
-                                    <input placeholder="Apellido(s)" type="text" class="form-control" id="username"
+                                    <input placeholder="Nombre(s)" type="text" class="form-control" id="name"
                                         required>
                                 </div>
                             </div>
@@ -161,18 +157,24 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-5">
-                                    <input placeholder="Expediente" type="text" class="form-control" id="username"
+                                <div class="col">
+                                    <input placeholder="Expediente" type="text" class="form-control" id="expediente"
                                         required>
                                 </div>
                                 <div class="col">
-                                    <input placeholder="Telefono" type="text" class="form-control" id="username"
+                                    <input placeholder="Telefono" type="text" class="form-control" id="phone"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <input placeholder="Contraseña" type="text" class="form-control" id="password"
                                         required>
                                 </div>
                             </div>
 
                         </div>
-                        <button type="submit" class="btn btn-primary center-button">Submit</button>
+                        <button type="submit" class="btn btn-primary center-button">Mandar</button>
                     </form>
                 </div>
             </div>
@@ -189,6 +191,7 @@
         crossorigin="anonymous"></script>
     <!-- FontAwesome library-->
     <script src="https://kit.fontawesome.com/80b9330a37.js" crossorigin="anonymous"></script>
+    <script src="home.js"></script>
 </body>
 
 </html>
