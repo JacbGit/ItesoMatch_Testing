@@ -8,9 +8,9 @@ const morgan = require('morgan')
 const app = express()
 const server = require('http').createServer(app)
 const io = new Server(server, {
-    cors: {
-        origin: "*"
-    }
+  cors: {
+    origin: '*'
+  }
 })
 
 app.use(morgan('dev'))
@@ -18,19 +18,19 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(cors())
 
-app.use("/api", router)
+app.use('/api', router)
 
 app.use('*', (req, res) => {
-    res.status(404).send("Not found")
+  res.status(404).send('Not found')
 })
 
 io.on('connection', (socket) => {
-    console.log("New socket connection")
+  console.log('New socket connection')
 
-    socket.on("message", (data) => {
-        console.log("New message:", data)
-        io.sockets.emit("new-message", data)
-    })
+  socket.on('message', (data) => {
+    console.log('New message:', data)
+    io.sockets.emit('new-message', data)
+  })
 })
 
 module.exports = server
