@@ -5,6 +5,5 @@ const router = Router()
 
 router.get('/', admin, usersController.getUsers)
 router.post('/', usersController.createUser)
-router.post('/login', usersController.loginUser)
 
 module.exports = router
