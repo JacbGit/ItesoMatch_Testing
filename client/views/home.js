@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault(); 
 
         const login = {
-            username: document.querySelector('#email1').value,
+            username: document.querySelector('#user1').value,
             password: document.querySelector('#password1').value
         }
 
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(response => response.json())
         .then(data => {
-            console.log('Guardao:', data);
+            console.log('Guardado:', data);
             
             //Token 
             localStorage.setItem('token', data.token);
@@ -48,6 +48,24 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         console.log(registro.edad);
+
+        fetch('http://localhost:3000/api/users/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(registro)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Guardado:', data);
+            
+            //Token 
+            localStorage.setItem('token', data.token);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 
     });
 });
