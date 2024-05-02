@@ -1,6 +1,16 @@
-const client = io("ws://localhost:3000")
+const userToken = localStorage.getItem("token")
 
-client.on("new-message", (message) => {
+const socket = io("ws://localhost:3000", {
+    auth: {
+        token: userToken
+    }
+})
+
+socket.on('connect_error', (error) => {
+    console.error('Connection error:', error)
+})
+
+socket.on("new-message", (message) => {
     console.log("New message echo:", message)
     chatContainer.innerHTML += messageTemplate(message)
     chatContainer.scrollTop = chatContainer.scrollHeight;
@@ -21,5 +31,5 @@ const sendBtn = document.getElementById("sendBtn")
 
 sendBtn.onclick = (e) => {
     e.preventDefault();
-    client.emit('message', msgInput.value)
+    socket.emit('message', msgInput.value)
 }
