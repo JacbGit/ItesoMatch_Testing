@@ -1,15 +1,53 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const loginForm = document.querySelector('#LoginForm'); // Asegúrate de agregar el id "loginForm" al formulario de login
+    const loginForm = document.querySelector('#LoginForm'); 
 
     loginForm.addEventListener('submit', function (e) {
-        e.preventDefault(); // Evitar que el formulario se envíe de manera predeterminada
+        e.preventDefault(); 
 
-        const email = document.querySelector('#email1').value;
-        const password = document.querySelector('#password1').value;
+        const login = {
+            username: document.querySelector('#email1').value,
+            password: document.querySelector('#password1').value
+        }
 
-        console.log('Email:', email);
-        console.log('Contraseña:', password);
+        fetch('http://localhost:3000/api/users/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(login)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Guardao:', data);
+            
+            //Token 
+            localStorage.setItem('token', data.token);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 
-        // Aquí podrías llamar a una función que maneje estos datos, como enviarlos a un servidor
+        
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const loginForm = document.querySelector('#RegisterForm'); 
+
+    loginForm.addEventListener('submit', function (e) {
+        e.preventDefault(); 
+
+        const registro = {
+            username: document.querySelector('#username').value,
+            edad: document.querySelector('#edad').value,
+            fullname: document.querySelector('#name').value,
+            email: document.querySelector('#email').value,
+            expediente: document.querySelector('#expediente').value,
+            phone: document.querySelector('#phone').value,
+            password: document.querySelector('#password').value
+        };
+
+        console.log(registro.edad);
+
     });
 });
