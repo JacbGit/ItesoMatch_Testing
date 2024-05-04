@@ -166,3 +166,7 @@
   .fade__out {
       opacity: 0;
   }
+
+  .fa-user:hover {
+    color: #FF0000; 
+}

@@ -71,3 +71,31 @@
     display: block; /* Hace que el botón sea un bloque para aplicar márgenes automáticos */
     margin: 0 auto; /* Centra el botón horizontalmente */
 }
+
+/* Para tags modal*/
+.badge {
+    background-color: #02112E;
+    margin: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.badge:hover {
+    background-color: #5B0054;  /* Oscurecer la etiqueta al pasar el mouse */
+}
+
+.close-icon {
+    color: white;
+    font-size: 0.8em;
+    margin-left: 10px;
+}
+
+#selectedTags {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.fa-user:hover {
+    color: #FF0000; 
+}
