@@ -8,7 +8,7 @@ const chatsRoutes = require('./modules/chats/chats.routes.js')
 
 router.use('/users', usersRoutes)
 router.use('/swipe', swipeRoutes)
-// router.use('/chats', chatsRoutes)
+router.use('/chats', chatsRoutes)
 router.get('/', (req, res) => {
   res.send('API')
 })

@@ -18,6 +18,7 @@ const createUser = async (req, res) => {
     phone,
     password
   } = req.body
+
   try {
     const newUser = await Users.create({
       username,
@@ -28,10 +29,13 @@ const createUser = async (req, res) => {
       phone,
       password
     })
-    res.status(200).json({ ok: true, data: newUser })
+
+    const token = jwt.sign({ userId: newUser._id }, config.JWT_SECRET, { expiresIn: '1h' })
+
+    res.status(200).json({ ok: true, token })
   } catch (error) {
     console.error(error)
-    res.status(500).json({ ok: false, error: 'Login error!' })
+    res.status(500).json({ ok: false, error: 'Register error!' })
   }
 }
 
@@ -53,15 +57,39 @@ const loginUser = async (req, res) => {
 
     const token = jwt.sign({ userId: user._id }, config.JWT_SECRET, { expiresIn: '1h' })
 
-    res.status(200).json({ token })
+    res.status(200).json({ ok: true, data: { userData: { username: user.username, _id: user._id }, token } })
   } catch (error) {
     console.error(error)
     res.status(500).json({ ok: false, error: 'Server error!' })
   }
 }
 
+const checkToken = async (req, res) => {
+  const token = req.get('Authorization')
+
+  if (!token) {
+    return res.status(401).json({ ok: false, error: 'Authorization token is missing!' })
+  }
+
+  try {
+    const decoded = jwt.verify(token, config.JWT_SECRET)
+    console.log(decoded)
+    const user = await Users.findById(decoded.userId)
+
+    if (!user) {
+      return res.status(404).json({ ok: false, error: 'User not found!' })
+    }
+
+    res.status(200).json({ ok: true })
+  } catch (error) {
+    console.error(error)
+    res.status(401).json({ ok: false, error: 'Invalid token!' })
+  }
+}
+
 module.exports = {
   getUsers,
   createUser,
-  loginUser
+  loginUser,
+  checkToken
 }

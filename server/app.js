@@ -7,6 +7,8 @@ const cookieParser = require('cookie-parser')
 const morgan = require('morgan')
 const jwt = require('jsonwebtoken')
 const Users = require('./modules/users/users.model')
+const Chats = require('./modules/chats/chats.model')
+const { sendMessageToChat } = require('./modules/chats/chats.controller')
 
 const app = express()
 const server = require('http').createServer(app)
@@ -52,13 +54,26 @@ io.use(async (socket, next) => {
   }
 })
 
+const socketConnections = {}
+
 io.on('connection', (socket) => {
-  console.log('New socket connection')
-  console.log(socket.user)
+  socketConnections[socket.user._id] = socket.id
 
   socket.on('message', (data) => {
-    console.log('New message:', data)
-    io.sockets.emit('new-message', data)
+    const { chatId, targetId, message } = data
+    console.log(data)
+    try {
+      if (!Chats.findOne({ _id: chatId, users: { $all: [targetId, socket.user._id] } })) {
+        throw Error('Chat doesnt exist')
+      }
+      const targetSocket = socketConnections[targetId]
+      if (targetSocket) {
+        io.to(targetSocket).emit('new-message', message)
+        sendMessageToChat(socket.user._id, chatId, message)
+      }
+    } catch (error) {
+
+    }
   })
 })
 
