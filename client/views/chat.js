@@ -86,6 +86,8 @@ const selectChat = async (targetId) => {
         })
         const chatData = await chatRes.json()
         if(chatData.ok) {
+            chatTitle.innerHTML = "";
+            chatTitle.innerHTML = selected.otherUser.username
             chatContainer.innerHTML = "";
             console.log(chatData)
             chatData.data.forEach(msg => {
