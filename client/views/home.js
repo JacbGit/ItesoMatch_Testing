@@ -61,7 +61,7 @@ document.getElementById('RegisterForm').addEventListener('submit', function(even
     //asignamos los atributos y sus valores
     const registerData = {
         username: document.querySelector('#username').value,
-        edad: document.querySelector('#edad').value,
+        age: document.querySelector('#edad').value,
         name: document.querySelector('#name').value,
         email: document.querySelector('#email').value,
         expediente: document.querySelector('#expediente').value,
