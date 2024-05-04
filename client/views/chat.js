@@ -4,6 +4,28 @@ let selectedChat = null
 let chats = []
 let curChatData = {}
 
+const checkToken = async() => {
+    const token = localStorage.getItem("token")
+    if(!token)
+        return false
+
+    const tokenRes = await fetch('http://localhost:3000/api/users/checkToken', {
+        headers: {
+            'Authorization': token
+        }
+    })
+    console.log(tokenRes.ok)
+    const tokenData = await tokenRes.json()
+    console.log(tokenData)
+    return tokenData.ok
+}
+
+checkToken().then(x=>{
+    if(!x) {
+        window.location = "/client/views/home.html"
+    }
+})
+
 const socket = io("ws://localhost:3000", {
     auth: {
         token: userToken
