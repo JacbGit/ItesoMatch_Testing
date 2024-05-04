@@ -14,7 +14,9 @@ socket.on('connect_error', (error) => {
     console.error('Connection error:', error)
 })
 
-socket.on("new-message", (message) => {
+socket.on("new-message", ({chatId, message}) => {
+    const selected = chats.find(x=>x.otherUser._id == selectedChat)
+    if(chatId != selected._id) return
     console.log("Received message", message)
     chatContainer.innerHTML += messageTemplate(false, message)
     chatContainer.scrollTop = chatContainer.scrollHeight;
@@ -105,7 +107,7 @@ sendBtn.onclick = (e) => {
     e.preventDefault();
     if(!selectedChat) return
     alert("Sending")
-    const selected = chats.find(x=>x.otherUser._id = selectedChat)
+    const selected = chats.find(x=>x.otherUser._id == selectedChat)
     if(selected) {
         socket.emit('message', {chatId: selected._id, targetId: selectedChat, message: msgInput.value})
 

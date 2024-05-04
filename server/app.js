@@ -68,7 +68,7 @@ io.on('connection', (socket) => {
       }
       const targetSocket = socketConnections[targetId]
       if (targetSocket) {
-        io.to(targetSocket).emit('new-message', message)
+        io.to(targetSocket).emit('new-message', { chatId, message })
         sendMessageToChat(socket.user._id, chatId, message)
       }
     } catch (error) {
