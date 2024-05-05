@@ -1,3 +1,7 @@
+const userToken = localStorage.getItem('token')
+const userData = JSON.parse(localStorage.getItem('userData'))
+let matches = []
+
 const checkToken = async () => {
   const token = localStorage.getItem('token')
   if (!token) { return false }
@@ -18,6 +22,73 @@ checkToken().then(x => {
     window.location = '/client/views/home.html'
   }
 })
+
+const cardTemplate = (user) => String.raw`
+<div>
+    <div class="w-full swipe__body h-auto">
+        <div class="card relative card__animate" id="card">
+            <div class="w-full h-full absolute z-index-10">
+                <div class="flex justify-center w-100 h-full">
+                    <div class="w-50 h-full bg-danger opacity-25" id="cardLeftTrigger">
+                        
+                    </div>
+                    <div class="w-50 h-full bg-success opacity-25" id="cardRightTrigger" onclick="onClickRight('${user._id}')">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex flex-column text-center">
+                <p class="card__title">
+                    ${user.name} - ${user.age}
+                </p>
+                <div class="separator w-full my"></div>
+                <div>
+                    <img src="/img/${user.imgURI}" style="max-height: 300px; width:100%">
+                </div>
+            </div>
+        </div>
+
+        <p id="swipeText" class="text-white"></p>
+    </div>
+</div>
+`
+
+let card = null
+
+let cardLeftTrigger = null
+
+let cardRightTrigger = null
+
+let swipeText = null
+
+const updateMatchCard = () => {
+  document.querySelector('#swipeContainer').innerHTML = cardTemplate(matches[0].user)
+  card = document.getElementById('card')
+
+  cardLeftTrigger = document.getElementById('cardLeftTrigger')
+  cardLeftTrigger.addEventListener('mouseover', onMouseHoverLeft)
+  cardLeftTrigger.addEventListener('mouseout', onMouseOutLeft)
+  cardLeftTrigger.addEventListener('click', onClickLeft)
+
+  cardRightTrigger = document.getElementById('cardRightTrigger')
+  cardRightTrigger.addEventListener('mouseover', onMouseHoverRight)
+  cardRightTrigger.addEventListener('mouseout', onMouseOutRight)
+
+  swipeText = document.getElementById('swipeText')
+}
+
+const getMatches = async () => {
+  const matchRes = await fetch('http://localhost:3000/api/swipe/top_matches', {
+    headers: {
+      Authorization: userToken
+    }
+  })
+  const matchData = await matchRes.json()
+  console.log(matchData)
+  matches = matchData
+  updateMatchCard()
+}
+getMatches()
 
 function onMouseHoverLeft () {
   card.classList.add('card__animate--left')
@@ -42,58 +113,28 @@ function onClickLeft () {
   setTimeout(() => {
     swipeText.innerText = ''
     card.classList.remove('fade__out')
+    matches.shift()
+    updateMatchCard()
   }, 1000)
 }
 
-function onClickRight () {
+async function onClickRight (userId) {
   swipeText.innerText = 'Match!'
   card.classList.add('fade__animation')
   card.classList.add('fade__out')
+  await fetch('http://localhost:3000/api/swipe/like_user', {
+    method: 'POST',
+    headers: {
+      Authorization: userToken,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ targetUser: userId })
+  })
+
   setTimeout(() => {
     swipeText.innerText = ''
     card.classList.remove('fade__out')
+    matches.shift()
+    updateMatchCard()
   }, 1000)
 }
-
-document.querySelector('#swipeContainer').innerHTML = String.raw`
-    <div>
-        <div class="w-full swipe__body h-auto">
-            <div class="card relative card__animate" id="card">
-                <div class="w-full h-full absolute z-index-10">
-                    <div class="flex justify-center w-100 h-full">
-                        <div class="w-50 h-full bg-danger opacity-25" id="cardLeftTrigger">
-                            
-                        </div>
-                        <div class="w-50 h-full bg-success opacity-25" id="cardRightTrigger">
-                            
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex flex-column text-center">
-                    <p class="card__title">
-                        Andrea Rojo - 23
-                    </p>
-                    <div class="separator w-full my"></div>
-                    <div>
-                        <img src="../assets/karen.jpeg" style="max-height: 300px; width:100%">
-                    </div>
-                </div>
-            </div>
-
-            <p id="swipeText" class="text-white"></p>
-        </div>
-    </div>
-`
-const card = document.getElementById('card')
-
-const cardLeftTrigger = document.getElementById('cardLeftTrigger')
-cardLeftTrigger.addEventListener('mouseover', onMouseHoverLeft)
-cardLeftTrigger.addEventListener('mouseout', onMouseOutLeft)
-cardLeftTrigger.addEventListener('click', onClickLeft)
-
-const cardRightTrigger = document.getElementById('cardRightTrigger')
-cardRightTrigger.addEventListener('mouseover', onMouseHoverRight)
-cardRightTrigger.addEventListener('mouseout', onMouseOutRight)
-cardRightTrigger.addEventListener('click', onClickRight)
-
-const swipeText = document.getElementById('swipeText')
