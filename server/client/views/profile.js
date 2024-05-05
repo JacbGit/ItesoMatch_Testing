@@ -16,6 +16,12 @@ const checkToken = async () => {
   return tokenData.ok
 }
 
+checkToken().then(x => {
+  if (!x) {
+    window.location = '/client/views/home.html'
+  }
+})
+
 document.addEventListener('DOMContentLoaded', function () {
   if (userData) {
     console.log(userData)
@@ -25,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('email').value = userData.email
     document.getElementById('expediente').value = userData.expediente
     document.getElementById('phone').value = userData.phone
-    document.getElementById('password').value = ''
   } else {
     console.error('Error: No user data available')
   }
@@ -44,12 +49,6 @@ document.addEventListener('DOMContentLoaded', function () {
         age: document.getElementById('age').value,
         name: document.getElementById('name').value,
         expediente: document.getElementById('expediente').value
-      }
-
-      // Checa si esta vacia
-      const passwordValue = document.getElementById('password').value
-      if (passwordValue.length > 0) {
-        updatedData.password = passwordValue
       }
 
       fetch(`http://localhost:3000/api/users/${userId}`, {
