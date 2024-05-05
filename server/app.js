@@ -18,11 +18,11 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(cors())
 
+app.use('/img', express.static('img'))
 app.use('/api', router)
 
 const path = require('path')
-app.use('/client', express.static(path.join(__dirname,'client')))
-
+app.use('/client', express.static(path.join(__dirname, 'client')))
 
 const io = new Server(server, {
   cors: {

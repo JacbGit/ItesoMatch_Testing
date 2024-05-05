@@ -30,7 +30,9 @@ const UserSchema = new Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  tags: [String],
+  imageURI: String
 })
 
 UserSchema.pre('save', async function (next) {

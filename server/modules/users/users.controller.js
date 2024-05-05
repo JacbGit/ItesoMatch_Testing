@@ -16,7 +16,8 @@ const createUser = async (req, res) => {
     email,
     expediente,
     phone,
-    password
+    password,
+    tags
   } = req.body
 
   try {
@@ -27,7 +28,8 @@ const createUser = async (req, res) => {
       email,
       expediente,
       phone,
-      password
+      password,
+      tags
     })
 
     const token = jwt.sign({ userId: newUser._id }, config.JWT_SECRET, { expiresIn: '1h' })
@@ -63,11 +65,11 @@ const loginUser = async (req, res) => {
       expediente: user.expediente,
       phone: user.phone,
       _id: user._id
-    };
+    }
 
     const token = jwt.sign({ userId: user._id }, config.JWT_SECRET, { expiresIn: '1h' })
 
-    //res.status(200).json({ ok: true, data: { userData: { username: user.username, _id: user._id }, token } })
+    // res.status(200).json({ ok: true, data: { userData: { username: user.username, _id: user._id }, token } })
     res.status(200).json({ ok: true, data: { userData, token } })
   } catch (error) {
     console.error(error)
@@ -126,41 +128,38 @@ const updateUser = async (req, res) => {
 */
 
 const updateUser = async (req, res) => {
-  const { id } = req.params; // Obtiene el ID del usuario desde la URL
-  const updateData = req.body; // Datos que quieres actualizar
+  const { id } = req.params // Obtiene el ID del usuario desde la URL
+  const updateData = req.body // Datos que quieres actualizar
 
   try {
     const updatedUser = await Users.findByIdAndUpdate(
       id,
       { $set: updateData },
       { new: true } // Devuelve el documento actualizado
-    );
+    )
     if (!updatedUser) {
-      return res.status(404).json({ ok: false, error: 'User not found' });
+      return res.status(404).json({ ok: false, error: 'User not found' })
     }
-    res.status(200).json({ ok: true, data: updatedUser });
+    res.status(200).json({ ok: true, data: updatedUser })
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ ok: false, error: 'Error updating user' });
+    console.error(error)
+    res.status(500).json({ ok: false, error: 'Error updating user' })
   }
 }
-
 
 const deleteUser = async (req, res) => {
   try {
-    const { id } = req.params;
-    const user = await Users.findByIdAndDelete(id);
+    const { id } = req.params
+    const user = await Users.findByIdAndDelete(id)
     if (!user) {
-      return res.status(404).json({ ok: false, error: 'User not found' });
+      return res.status(404).json({ ok: false, error: 'User not found' })
     }
-    res.status(200).json({ ok: true, message: 'User deleted successfully' });
+    res.status(200).json({ ok: true, message: 'User deleted successfully' })
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ ok: false, error: 'Error deleting user' });
+    console.error(error)
+    res.status(500).json({ ok: false, error: 'Error deleting user' })
   }
 }
-
-
 
 module.exports = {
   getUsers,
