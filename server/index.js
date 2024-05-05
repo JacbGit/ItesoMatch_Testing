@@ -9,7 +9,7 @@ main().catch((err) => console.log(err))
 async function main () {
   await mongoose.connect(mongoDB)
   server.listen(PORT, () => {
-    console.log('Server listening on http://localhost:3000')
+    console.log('Server listening on http://itesomatch.xyz')
   })
 }
 
