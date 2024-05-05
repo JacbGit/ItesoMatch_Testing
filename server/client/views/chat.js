@@ -38,7 +38,6 @@ socket.on('connect_error', (error) => {
 socket.on('new-message', ({ chatId, message }) => {
   const selected = chats.find(x => x.otherUser._id == selectedChat)
   if (chatId != selected._id) return
-  console.log('Received message', message)
   chatContainer.innerHTML += messageTemplate(false, message)
   chatContainer.scrollTop = chatContainer.scrollHeight
 })
@@ -77,9 +76,8 @@ const sendBtn = document.getElementById('sendBtn')
 
 const selectChat = async (targetId) => {
   selectedChat = targetId
-  const selected = chats.find(x => x.otherUser._id = targetId)
+  const selected = chats.find(x => x.otherUser._id == targetId)
   if (selected) {
-    console.log(selected)
     const chatRes = await fetch('http://localhost:3000/api/chats/' + selected._id, {
       headers: {
         Authorization: userToken
@@ -90,7 +88,6 @@ const selectChat = async (targetId) => {
       chatTitle.innerHTML = ''
       chatTitle.innerHTML = selected.otherUser.username
       chatContainer.innerHTML = ''
-      console.log(chatData)
       chatData.data.forEach(msg => {
         chatContainer.innerHTML += messageTemplate(msg.sender == userData._id, msg.content)
       })
@@ -101,20 +98,19 @@ const selectChat = async (targetId) => {
 }
 
 const getChats = async () => {
-  console.log(userToken)
   const chatRes = await fetch('http://localhost:3000/api/chats', {
     headers: {
       Authorization: userToken
     }
   })
   const chatData = await chatRes.json()
-  console.log(chatData.data)
   chatData.data = chatData.data.map(x => {
     return {
       ...x,
       otherUser: x.users.filter(x => x._id != userData._id)[0]
     }
   })
+
   let chatsHtml = ''
   chatData.data.forEach(x => {
     chatsHtml += chatTemplate(x.otherUser)
