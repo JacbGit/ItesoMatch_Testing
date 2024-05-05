@@ -8,7 +8,7 @@ const checkToken = async () => {
   const token = localStorage.getItem('token')
   if (!token) { return false }
 
-  const tokenRes = await fetch('http://itesomatch.xyz/api/users/checkToken', {
+  const tokenRes = await fetch('https://itesomatch.xyz/api/users/checkToken', {
     headers: {
       Authorization: token
     }
@@ -78,7 +78,7 @@ const selectChat = async (targetId) => {
   selectedChat = targetId
   const selected = chats.find(x => x.otherUser._id == targetId)
   if (selected) {
-    const chatRes = await fetch('http://itesomatch.xyz/api/chats/' + selected._id, {
+    const chatRes = await fetch('https://itesomatch.xyz/api/chats/' + selected._id, {
       headers: {
         Authorization: userToken
       }
@@ -98,7 +98,7 @@ const selectChat = async (targetId) => {
 }
 
 const getChats = async () => {
-  const chatRes = await fetch('http://itesomatch.xyz/api/chats', {
+  const chatRes = await fetch('https://itesomatch.xyz/api/chats', {
     headers: {
       Authorization: userToken
     }

@@ -5,7 +5,7 @@ const checkToken = async () => {
   const token = localStorage.getItem('token')
   if (!token) { return false }
 
-  const tokenRes = await fetch('http://itesomatch.xyz/api/users/checkToken', {
+  const tokenRes = await fetch('https://itesomatch.xyz/api/users/checkToken', {
     headers: {
       Authorization: token
     }
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
         expediente: document.getElementById('expediente').value
       }
 
-      fetch(`http://itesomatch.xyz/api/users/${userId}`, {
+      fetch(`https://itesomatch.xyz/api/users/${userId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 
 function deleteprofile () {
-  fetch(`http://itesomatch.xyz/api/users/${userData._id}`, {
+  fetch(`https://itesomatch.xyz/api/users/${userData._id}`, {
     method: 'DELETE',
     headers: {
       Authorization: userToken,

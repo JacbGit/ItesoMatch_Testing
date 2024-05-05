@@ -6,7 +6,7 @@ const checkToken = async () => {
   const token = localStorage.getItem('token')
   if (!token) { return false }
 
-  const tokenRes = await fetch('http://itesomatch.xyz/api/users/checkToken', {
+  const tokenRes = await fetch('https://itesomatch.xyz/api/users/checkToken', {
     headers: {
       Authorization: token
     }
@@ -78,7 +78,7 @@ const updateMatchCard = () => {
 }
 
 const getMatches = async () => {
-  const matchRes = await fetch('http://itesomatch.xyz/api/swipe/top_matches', {
+  const matchRes = await fetch('https://itesomatch.xyz/api/swipe/top_matches', {
     headers: {
       Authorization: userToken
     }
@@ -122,7 +122,7 @@ async function onClickRight (userId) {
   swipeText.innerText = 'Match!'
   card.classList.add('fade__animation')
   card.classList.add('fade__out')
-  await fetch('http://itesomatch.xyz/api/swipe/like_user', {
+  await fetch('https://itesomatch.xyz/api/swipe/like_user', {
     method: 'POST',
     headers: {
       Authorization: userToken,
