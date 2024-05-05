@@ -167,6 +167,9 @@
       opacity: 0;
   }
 
+  .fa-user {
+    color: #ffffff; 
+}
   .fa-user:hover {
     color: #FF0000; 
 }
