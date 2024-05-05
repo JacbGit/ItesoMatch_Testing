@@ -20,9 +20,9 @@ app.use(cors())
 
 app.use('/api', router)
 
-app.use('*', (req, res) => {
-  res.status(404).send('Not found')
-})
+const path = require('path')
+app.use('/client', express.static(path.join(__dirname,'client')))
+
 
 const io = new Server(server, {
   cors: {

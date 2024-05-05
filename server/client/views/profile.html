@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>ITESOMatch</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link rel="stylesheet" href="home.css">
+    <link href="https://db.onlinewebfonts.com/c/22db60d19480ba0274c9eb6ba877ea9b?family=Aharoni+Bold+V1"
+        rel="stylesheet">
+</head>
+<body style="background-color: #393e46;">
+    <header>
+        <!-- place navbar here -->
+        <nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #02112E;">
+            <img src="../assets/crush iteso2.png" class="icon-bar ms-5">
+            <a class="navbar-brand mx-3" href="#"
+                style="font-family: 'Aharoni Bold V1'; font-size: 2em; ">ITESOMatch</a>
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+                aria-label="Toggle navigation"></button>
+            <div class="collapse navbar-collapse" id="collapsibleNavId">
+                <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="home.html">Home<span
+                                class="visually-hidden">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="chat.html">Chat</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="swipe.html">Swipe</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">Perfil</a>
+                    </li>
+                    
+                </ul>
+                <span style="color: white;">
+                    <b href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+                        <i class="fa-solid fa-user icon-bar ms-5 fa-2x" style="margin-top: 10px;"></i>
+                    </b>
+
+                </span>
+            </div>
+        </nav>
+    </header>
+    <main  >
+        <div class=" form-container" >
+            <h2>Editar Perfil</h2>
+            <form id="editUserForm">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Usuario</label>
+                    <input type="text" class="form-control" id="username" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="age" class="form-label">Edad</label>
+                    <input type="number" class="form-control" id="age">
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="name">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Correo Electrónico</label>
+                    <input type="email" class="form-control" id="email" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="expediente" class="form-label">Expediente</label>
+                    <input type="text" class="form-control" id="expediente">
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Teléfono (no editable)</label>
+                    <input type="text" class="form-control" id="phone" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="password">
+                </div>
+                <div class="row justify-content-between mt-4">
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary mx-auto">Guardar Cambios</button>
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-danger mx-auto" onclick="logout()">Salir</button>
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-warning " onclick="deleteprofile()">Borrar Perfil</button>
+                    </div>
+                </div>
+                
+                
+            </form>
+        </div>
+
+        
+        
+        
+    </main>
+
+    <footer>
+
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    
+    <!-- FontAwesome library-->
+    <script src="https://kit.fontawesome.com/80b9330a37.js" crossorigin="anonymous"></script>
+
+    <script src="profile.js"></script>
+</body>
+</html>

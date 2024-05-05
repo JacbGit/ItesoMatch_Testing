@@ -9,4 +9,10 @@ router.post('/', usersController.createUser)
 router.post('/login', usersController.loginUser)
 router.get('/checkToken', userAuth, usersController.checkToken)
 
+router.put('/:id', userAuth, usersController.updateUser);
+
+router.delete('/:id', usersController.deleteUser);
+
+
+
 module.exports = router
