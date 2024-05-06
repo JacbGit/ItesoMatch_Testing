@@ -2,6 +2,7 @@ const Users = require('./users.model')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const config = require('../../utils/config')
+const path = require('path')
 
 const getUsers = async (req, res) => {
   const users = await Users.find()
@@ -9,6 +10,8 @@ const getUsers = async (req, res) => {
 }
 
 const createUser = async (req, res) => {
+  const { image } = req.files
+  console.log(image)
   const {
     username,
     age,
@@ -21,6 +24,14 @@ const createUser = async (req, res) => {
   } = req.body
 
   try {
+    if (!image) return res.sendStatus(400)
+
+    // If does not have image mime type prevent from uploading
+
+    // Move the uploaded image to our upload folder
+    const imageName = Date.now() + '-' + image.name
+    const newPath = path.join(__dirname, '../../img', imageName)
+    await image.mv(newPath)
     const newUser = await Users.create({
       username,
       age,
@@ -29,12 +40,24 @@ const createUser = async (req, res) => {
       expediente,
       phone,
       password,
-      tags
+      tags,
+      imageURI: imageName
     })
+
+    const userData = {
+      username: newUser.username,
+      age: newUser.age,
+      name: newUser.name,
+      email: newUser.email,
+      expediente: newUser.expediente,
+      phone: newUser.phone,
+      _id: newUser._id,
+      imageURI: newUser.imageURI
+    }
 
     const token = jwt.sign({ userId: newUser._id }, config.JWT_SECRET, { expiresIn: '1h' })
 
-    res.status(200).json({ ok: true, token })
+    res.status(200).json({ ok: true, data: { userData, token } })
   } catch (error) {
     console.error(error)
     res.status(500).json({ ok: false, error: 'Register error!' })
@@ -64,7 +87,8 @@ const loginUser = async (req, res) => {
       email: user.email,
       expediente: user.expediente,
       phone: user.phone,
-      _id: user._id
+      _id: user._id,
+      imageURI: user.imageURI
     }
 
     const token = jwt.sign({ userId: user._id }, config.JWT_SECRET, { expiresIn: '1h' })

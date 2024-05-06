@@ -9,14 +9,16 @@ const jwt = require('jsonwebtoken')
 const Users = require('./modules/users/users.model')
 const Chats = require('./modules/chats/chats.model')
 const { sendMessageToChat } = require('./modules/chats/chats.controller')
+const fileUpload = require('express-fileupload')
 
 const app = express()
 const server = require('http').createServer(app)
 
 app.use(morgan('dev'))
-app.use(express.json())
 app.use(cookieParser())
 app.use(cors())
+app.use(fileUpload())
+app.use(express.json({ limit: '50mb' }))
 
 app.use('/img', express.static('img'))
 app.use('/api', router)

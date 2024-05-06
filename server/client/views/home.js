@@ -19,6 +19,8 @@ checkToken().then(x => {
   }
 })
 
+let formData = null
+
 // Envio del login
 document.addEventListener('DOMContentLoaded', function () {
   const loginForm = document.querySelector('#LoginForm')
@@ -46,6 +48,9 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem('token', data.data.token)
         // localStorage.setItem('userData', JSON.stringify(data.data.userData));
         localStorage.setItem('userData', JSON.stringify(data.data.userData))
+        if (data.data.token) {
+          window.location = '/client/views/profile.html'
+        }
       })
       .catch((error) => {
         console.error('Error:', error)
@@ -64,8 +69,20 @@ document.getElementById('RegisterForm').addEventListener('submit', function (eve
     email: document.querySelector('#email').value,
     expediente: document.querySelector('#expediente').value,
     phone: document.querySelector('#phone').value,
-    password: document.querySelector('#password').value
+    password: document.querySelector('#password').value,
+    image: document.querySelector('#image').files[0]
   }
+
+  formData = new FormData()
+  formData.append('username', document.querySelector('#username').value)
+  formData.append('age', document.querySelector('#edad').value)
+  formData.append('name', document.querySelector('#name').value)
+  formData.append('email', document.querySelector('#email').value)
+  formData.append('expediente', document.querySelector('#expediente').value)
+  formData.append('phone', document.querySelector('#phone').value)
+  formData.append('password', document.querySelector('#password').value)
+  formData.append('image', document.querySelector('#image').files[0])
+  console.log(formData)
 
   localStorage.setItem('registerData', JSON.stringify(registerData)) // guardamos el Item porque si no no se guarda
 
@@ -119,20 +136,21 @@ function submitTags () {
   const registerData = JSON.parse(localStorage.getItem('registerData'))
   // Agregamos las tags al documento
   registerData.tags = selectedTags
-
-  console.log(registerData)
+  formData.append('tags', selectedTags)
 
   fetch('https://itesomatch.xyz/api/users', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(registerData)
+    body: formData
   })
     .then(response => response.json())
     .then(data => {
       console.log('Guardado:', data)
-      localStorage.setItem('token', data.token)
+      localStorage.setItem('token', data.data.token)
+      localStorage.setItem('userData', JSON.stringify(data.data.userData))
+
+      if (data.data.token) {
+        window.location = '/client/views/profile.html'
+      }
       // Optionally, you can perform further actions after successful data submission
     })
     .catch(error => {

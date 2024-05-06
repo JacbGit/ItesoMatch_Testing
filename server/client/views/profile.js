@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('email').value = userData.email
     document.getElementById('expediente').value = userData.expediente
     document.getElementById('phone').value = userData.phone
+    document.getElementById('img').src = 'https://itesomatch.xyz/img/' + userData.imageURI
   } else {
     console.error('Error: No user data available')
   }
