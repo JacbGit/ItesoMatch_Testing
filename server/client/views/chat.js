@@ -25,7 +25,7 @@ checkToken().then(x => {
   }
 })
 
-const socket = io('ws://itesomatch.xyz', {
+const socket = io('wss://itesomatch.xyz', {
   auth: {
     token: userToken
   }
