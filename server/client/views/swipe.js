@@ -43,7 +43,8 @@ const cardTemplate = (user) => String.raw`
                 </p>
                 <div class="separator w-full my"></div>
                 <div>
-                    <img src="/img/${user.imgURI}" style="max-height: 300px; width:100%">
+                    ${user.imageURI}
+                    <img src="/img/${user.imageURI}" style="max-height: 300px; width:100%">
                 </div>
             </div>
         </div>
