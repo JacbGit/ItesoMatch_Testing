@@ -63,6 +63,11 @@ let swipeText = null
 
 const updateMatchCard = () => {
   document.querySelector('#swipeContainer').innerHTML = cardTemplate(matches[0].user)
+  document.querySelector('#descriptionCard').innerHTML = `
+  <h3>${matches[0].user.name} - ${matches[0].user.age}</h3>
+  <hr>
+  ${matches[0].user.tags}
+  `
   card = document.getElementById('card')
 
   cardLeftTrigger = document.getElementById('cardLeftTrigger')
