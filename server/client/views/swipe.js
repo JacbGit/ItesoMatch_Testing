@@ -66,7 +66,7 @@ const updateMatchCard = () => {
   document.querySelector('#descriptionCard').innerHTML = `
   <h3>${matches[0].user.name} - ${matches[0].user.age}</h3>
   <hr>
-  ${matches[0].user.tags}
+  <p style="max-width=100%; word-wrap: break-word;">${matches[0].user.tags}</p>
   `
   card = document.getElementById('card')
 
