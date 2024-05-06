@@ -126,7 +126,6 @@ getChats()
 sendBtn.onclick = (e) => {
   e.preventDefault()
   if (!selectedChat) return
-  alert('Sending')
   const selected = chats.find(x => x.otherUser._id == selectedChat)
   if (selected) {
     socket.emit('message', { chatId: selected._id, targetId: selectedChat, message: msgInput.value })
