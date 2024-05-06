@@ -3,7 +3,28 @@ const Messages = require('../messages/messages.model')
 
 const getAllChats = async (req, res) => {
   const user = req.user
-  const chats = await Chats.find({ users: user._id }).populate('users', 'username')
+  const chats = await Chats.aggregate([
+    {
+      $match: { users: user._id }
+    },
+    {
+      $lookup: {
+        from: 'users', // Assuming 'users' is the name of your users collection
+        localField: 'users',
+        foreignField: '_id',
+        as: 'userDetails'
+      }
+    },
+    {
+      $unwind: {
+        path: '$userDetails',
+        preserveNullAndEmptyArrays: true
+      }
+    },
+    {
+      $match: { userDetails: { $ne: null } }
+    }
+  ])
 
   res.status(200).json({ ok: true, data: chats })
 }
