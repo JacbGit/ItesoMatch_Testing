@@ -88,6 +88,7 @@ const selectChat = async (targetId) => {
     if (chatData.ok) {
       chatTitle.innerHTML = ''
       chatTitle.innerHTML = selected.otherUser.username
+      document.getElementById('messageChatContainer').classList.remove('invisible')
       document.getElementById(selected.otherUser._id + '-chat').classList.add('active')
       chatContainer.innerHTML = ''
       chatData.data.forEach(msg => {
