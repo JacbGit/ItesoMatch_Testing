@@ -4,8 +4,8 @@ const Messages = require('../messages/messages.model')
 const getAllChats = async (req, res) => {
   const user = req.user
   const chats = await Chats.find({ users: user._id }).populate('users', 'username')
-
-  res.status(200).json({ ok: true, data: chats })
+  const filteredChats = chats.filter(chat => chat.users.length >= 2)
+  res.status(200).json({ ok: true, data: filteredChats })
 }
 
 const getMessagesFromChat = async (req, res) => {
