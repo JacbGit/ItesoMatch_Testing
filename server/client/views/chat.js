@@ -114,6 +114,12 @@ const getChats = async () => {
     }
   })
 
+  if (chatData.data.length <= 0) {
+    chatsContainer.innerHTML = 'NO TIENES NINGUN MATCH!'
+
+    return
+  }
+
   let chatsHtml = ''
   chatData.data.forEach(x => {
     chatsHtml += chatTemplate(x.otherUser)
