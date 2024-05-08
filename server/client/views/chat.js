@@ -58,7 +58,7 @@ const messageTemplate = (isSelf, message) => isSelf
 </div>`
 
 const chatTemplate = (user) => `
-<div class="btn btn-success w-100 d-flex align-items-center mb-2 gap-2" onclick="selectChat('${user._id}')">
+<div class="btn btn-success w-100 d-flex align-items-center mb-2 gap-2" id="${user._id}-chat" onclick="selectChat('${user._id}')">
                             <span style="color: white;" class="mr-2">
                                 <i class="fa-solid fa-user fa-2x"></i>
                             </span>
@@ -75,6 +75,7 @@ const msgInput = document.getElementById('msgInput')
 const sendBtn = document.getElementById('sendBtn')
 
 const selectChat = async (targetId) => {
+  if (selectedChat) { document.getElementById(selectedChat + '-chat').classList.remove('active') }
   selectedChat = targetId
   const selected = chats.find(x => x.otherUser._id == targetId)
   if (selected) {
@@ -87,6 +88,7 @@ const selectChat = async (targetId) => {
     if (chatData.ok) {
       chatTitle.innerHTML = ''
       chatTitle.innerHTML = selected.otherUser.username
+      document.getElementById(selected.otherUser._id + '-chat').classList.add('active')
       chatContainer.innerHTML = ''
       chatData.data.forEach(msg => {
         chatContainer.innerHTML += messageTemplate(msg.sender == userData._id, msg.content)
