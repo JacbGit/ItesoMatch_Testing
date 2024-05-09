@@ -2,6 +2,11 @@ const userToken = localStorage.getItem('token')
 const userData = JSON.parse(localStorage.getItem('userData'))
 let matches = []
 
+var loader = document.getElementById("preloader");
+window.addEventListener("load", function(){
+  loader.style.display = "none";
+});
+
 const checkToken = async () => {
   const token = localStorage.getItem('token')
   if (!token) { return false }
