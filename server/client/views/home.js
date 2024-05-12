@@ -145,8 +145,8 @@ function submitTags () {
     .then(response => response.json())
     .then(data => {
       console.log('Guardado:', data)
-      if(!data.ok){
-        alert("Credenciales incorrectas");
+      if (!data.ok) {
+        alert('Credenciales incorrectas')
       }
       localStorage.setItem('token', data.data.token)
       localStorage.setItem('userData', JSON.stringify(data.data.userData))

@@ -1,5 +1,6 @@
 const userToken = localStorage.getItem('token')
 const userData = JSON.parse(localStorage.getItem('userData'))
+let selectedTagsArray = []
 
 const checkToken = async () => {
   const token = localStorage.getItem('token')
@@ -49,7 +50,8 @@ document.addEventListener('DOMContentLoaded', function () {
       const updatedData = {
         age: document.getElementById('age').value,
         name: document.getElementById('name').value,
-        expediente: document.getElementById('expediente').value
+        expediente: document.getElementById('expediente').value,
+        tags: selectedTagsArray
       }
 
       fetch(`https://itesomatch.xyz/api/users/${userId}`, {
@@ -99,3 +101,73 @@ function logout () {
   localStorage.clear()
   window.location = '/client/views/home.html'
 }
+
+function initializeTags () {
+  const tagsDiv = document.getElementById('tagsDiv')
+  tagsDiv.innerHTML = ''
+
+  const container = document.getElementById('tagsList')
+  container.innerHTML = ''
+
+  const predefinedTags = ['#Cine', '#Música', '#Fitness', '#Informática', '#Química', '#Matemática', '#Ciberseguridad', '#Arquitectura',
+    '#Diseño', '#Psicología', '#Física', '#Abogacía', '#Comunicación'
+  ]
+
+  predefinedTags.forEach(tag => {
+    const tagElement = document.createElement('span')
+    tagElement.textContent = tag
+    tagElement.className = 'badge badge-primary'
+    tagElement.onclick = function () {
+      if (!isTagSelected(tag)) {
+        moveTag(tag)
+      } else {
+        removeTag(tag)
+      }
+    }
+    container.appendChild(tagElement)
+  })
+
+  // Move the selected tags from userData.tags
+  const selectedTags = userData.tags
+  selectedTags.forEach(tag => {
+    moveTag(tag)
+  })
+}
+
+// Check if a tag is already selected
+function isTagSelected (tag) {
+  const selectedTags = document.getElementById('selectedTags').getElementsByTagName('span')
+  for (let i = 0; i < selectedTags.length; i++) {
+    if (selectedTags[i].textContent === tag) {
+      return true
+    }
+  }
+  return false
+}
+
+// Función para mover las etiquetas seleccionadas
+function moveTag (tag) {
+  const display = document.getElementById('selectedTags')
+  const newTag = document.createElement('span')
+  newTag.textContent = tag
+  newTag.className = 'badge badge-secondary'
+  newTag.onclick = function () {
+    removeTag(tag)
+  }
+  display.appendChild(newTag)
+  selectedTagsArray.push(tag)
+}
+
+// Function to remove selected tag
+function removeTag (tag) {
+  const selectedTags = document.getElementById('selectedTags').getElementsByTagName('span')
+  for (let i = 0; i < selectedTags.length; i++) {
+    if (selectedTags[i].textContent === tag) {
+      selectedTags[i].remove()
+      selectedTagsArray = selectedTagsArray.filter(item => item !== tag)
+      break // Exit loop once tag is removed
+    }
+  }
+}
+
+initializeTags()
