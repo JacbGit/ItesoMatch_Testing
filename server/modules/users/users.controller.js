@@ -32,6 +32,8 @@ const createUser = async (req, res) => {
     const imageName = Date.now() + '-' + image.name
     const newPath = path.join(__dirname, '../../img', imageName)
     await image.mv(newPath)
+    const parsedTags = tags.split(',')
+
     const newUser = await Users.create({
       username,
       age,
@@ -40,9 +42,11 @@ const createUser = async (req, res) => {
       expediente,
       phone,
       password,
-      tags,
+      tags: parsedTags,
       imageURI: imageName
     })
+
+    console.log(parsedTags, newUser)
 
     const userData = {
       username: newUser.username,
