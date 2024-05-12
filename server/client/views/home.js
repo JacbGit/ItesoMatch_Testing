@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log('Guardado:', data)
 
         if (!data.ok) {
-          alert('Usuario no valido!")
+          alert('Usuario no valido!')
         }
 
         // Token
