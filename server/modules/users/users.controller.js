@@ -52,7 +52,8 @@ const createUser = async (req, res) => {
       expediente: newUser.expediente,
       phone: newUser.phone,
       _id: newUser._id,
-      imageURI: newUser.imageURI
+      imageURI: newUser.imageURI,
+      tags: newUser.tags
     }
 
     const token = jwt.sign({ userId: newUser._id }, config.JWT_SECRET, { expiresIn: '1h' })
@@ -88,7 +89,8 @@ const loginUser = async (req, res) => {
       expediente: user.expediente,
       phone: user.phone,
       _id: user._id,
-      imageURI: user.imageURI
+      imageURI: user.imageURI,
+      tags: user.tags
     }
 
     const token = jwt.sign({ userId: user._id }, config.JWT_SECRET, { expiresIn: '1h' })
