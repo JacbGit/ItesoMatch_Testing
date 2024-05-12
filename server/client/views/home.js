@@ -44,6 +44,10 @@ document.addEventListener('DOMContentLoaded', function () {
       .then(data => {
         console.log('Guardado:', data)
 
+        if (!data.ok) {
+          alert('Usuario no valido!")
+        }
+
         // Token
         localStorage.setItem('token', data.data.token)
         // localStorage.setItem('userData', JSON.stringify(data.data.userData));
