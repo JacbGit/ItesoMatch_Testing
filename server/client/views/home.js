@@ -27,6 +27,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   loginForm.addEventListener('submit', function (e) {
     e.preventDefault()
+
+    $('#LoginForm').modal('hide')
+
     const login = {
       username: document.querySelector('#user1').value,
       password: document.querySelector('#password1').value
