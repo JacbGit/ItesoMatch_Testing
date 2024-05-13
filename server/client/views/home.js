@@ -28,6 +28,8 @@ document.addEventListener('DOMContentLoaded', function () {
   loginForm.addEventListener('submit', function (e) {
     e.preventDefault()
 
+    if (!document.querySelector('#user1').value || !document.querySelector('password1').value) return
+
     const login = {
       username: document.querySelector('#user1').value,
       password: document.querySelector('#password1').value
