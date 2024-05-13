@@ -2,7 +2,7 @@ const userToken = localStorage.getItem('token')
 const userData = JSON.parse(localStorage.getItem('userData'))
 let matches = []
 
-const loader = document.getElementById('preloader')
+const loader = document.getElementById('bgloader')
 window.addEventListener('load', function () {
   loader.style.display = 'none'
 })
