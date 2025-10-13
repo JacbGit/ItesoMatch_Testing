@@ -6,7 +6,7 @@ const checkToken = async () => {
   const token = localStorage.getItem('token')
   if (!token) { return false }
 
-  const tokenRes = await fetch('https://itesomatch.xyz/api/users/checkToken', {
+  const tokenRes = await fetch('http://localhost:3000/api/users/checkToken', {
     headers: {
       Authorization: token
     }
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('email').value = userData.email
     document.getElementById('expediente').value = userData.expediente
     document.getElementById('phone').value = userData.phone
-    document.getElementById('img').src = 'https://itesomatch.xyz/img/' + userData.imageURI
+    document.getElementById('img').src = 'http://localhost:3000/img/' + userData.imageURI
   } else {
     console.error('Error: No user data available')
   }
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
         tags: selectedTagsArray
       }
 
-      fetch(`https://itesomatch.xyz/api/users/${userId}`, {
+      fetch(`http://localhost:3000/api/users/${userId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 
 function deleteprofile () {
-  fetch(`https://itesomatch.xyz/api/users/${userData._id}`, {
+  fetch(`http://localhost:3000/api/users/${userData._id}`, {
     method: 'DELETE',
     headers: {
       Authorization: userToken,

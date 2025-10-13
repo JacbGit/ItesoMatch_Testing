@@ -2,7 +2,7 @@ const checkToken = async () => {
   const token = localStorage.getItem('token')
   if (!token) { return false }
 
-  const tokenRes = await fetch('https://itesomatch.xyz/api/users/checkToken', {
+  const tokenRes = await fetch('http://localhost:3000/api/users/checkToken', {
     headers: {
       Authorization: token
     }
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
       password: document.querySelector('#password1').value
     }
 
-    fetch('https://itesomatch.xyz/api/users/login', {
+    fetch('http://localhost:3000/api/users/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -144,7 +144,7 @@ function submitTags () {
   registerData.tags = selectedTags
   formData.append('tags', selectedTags)
 
-  fetch('https://itesomatch.xyz/api/users', {
+  fetch('http://localhost:3000/api/users', {
     method: 'POST',
     body: formData
   })
