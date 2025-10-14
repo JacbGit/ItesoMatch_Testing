@@ -31,5 +31,5 @@ jobs:
         working-directory: ./server
 
       - name: Run Prettier Check
-        run: npm run check:prettier # O el comando que uses para verificar con Prettier
+        run: npm run prettier:check # O el comando que uses para verificar con Prettier
         working-directory: ./server
