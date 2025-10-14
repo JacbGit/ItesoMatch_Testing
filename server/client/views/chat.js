@@ -1,47 +1,47 @@
-const userToken = localStorage.getItem('token')
-const userData = JSON.parse(localStorage.getItem('userData'))
-let selectedChat = null
-let chats = []
+const userToken = localStorage.getItem("token");
+const userData = JSON.parse(localStorage.getItem("userData"));
+let selectedChat = null;
+let chats = [];
 
 const checkToken = async () => {
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem("token");
   if (!token) {
-    return false
+    return false;
   }
 
-  const tokenRes = await fetch('http://localhost:3000/api/users/checkToken', {
+  const tokenRes = await fetch("http://localhost:3000/api/users/checkToken", {
     headers: {
-      Authorization: token
-    }
-  })
-  console.log(tokenRes.ok)
-  const tokenData = await tokenRes.json()
-  console.log(tokenData)
-  return tokenData.ok
-}
+      Authorization: token,
+    },
+  });
+  console.log(tokenRes.ok);
+  const tokenData = await tokenRes.json();
+  console.log(tokenData);
+  return tokenData.ok;
+};
 
 checkToken().then((x) => {
   if (!x) {
-    window.location = '/client/views/home.html'
+    window.location = "/client/views/home.html";
   }
-})
+});
 /* global io */
-const socket = io('wss://localhost:3000', {
+const socket = io("wss://localhost:3000", {
   auth: {
-    token: userToken
-  }
-})
+    token: userToken,
+  },
+});
 
-socket.on('connect_error', (error) => {
-  console.error('Connection error:', error)
-})
+socket.on("connect_error", (error) => {
+  console.error("Connection error:", error);
+});
 
-socket.on('new-message', ({ chatId, message }) => {
-  const selected = chats.find((x) => x.otherUser._id === selectedChat)
-  if (chatId !== selected._id) return
-  chatContainer.innerHTML += messageTemplate(false, message)
-  chatContainer.scrollTop = chatContainer.scrollHeight
-})
+socket.on("new-message", ({ chatId, message }) => {
+  const selected = chats.find((x) => x.otherUser._id === selectedChat);
+  if (chatId !== selected._id) return;
+  chatContainer.innerHTML += messageTemplate(false, message);
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+});
 
 const messageTemplate = (isSelf, message) =>
   isSelf
@@ -57,7 +57,7 @@ const messageTemplate = (isSelf, message) =>
     <div class="chat w-50 rounded-pill border border-success bg-white text-black p-2">
         ${message}
     </div>
-</div>`
+</div>`;
 
 const chatTemplate = (user) => `
 <div class="btn btn-success w-100 d-flex align-items-center mb-2 gap-2" id="${user._id}-chat" onclick="selectChat('${user._id}')">
@@ -65,100 +65,100 @@ const chatTemplate = (user) => `
                                 <i class="fa-solid fa-user fa-2x"></i>
                             </span>
                             ${user.username}
-                        </div>`
+                        </div>`;
 
-const chatContainer = document.getElementById('chatContainer')
-chatContainer.scrollTop = chatContainer.scrollHeight
+const chatContainer = document.getElementById("chatContainer");
+chatContainer.scrollTop = chatContainer.scrollHeight;
 
-const chatsContainer = document.getElementById('chatsContainer')
-const chatTitle = document.getElementById('chatTitle')
+const chatsContainer = document.getElementById("chatsContainer");
+const chatTitle = document.getElementById("chatTitle");
 
-const msgInput = document.getElementById('msgInput')
-const sendBtn = document.getElementById('sendBtn')
+const msgInput = document.getElementById("msgInput");
+const sendBtn = document.getElementById("sendBtn");
 
 // eslint-disable-next-line no-unused-vars
 const selectChat = async (targetId) => {
   if (selectedChat) {
-    document.getElementById(selectedChat + '-chat').classList.remove('active')
+    document.getElementById(selectedChat + "-chat").classList.remove("active");
   }
-  selectedChat = targetId
-  const selected = chats.find((x) => x.otherUser._id === targetId)
+  selectedChat = targetId;
+  const selected = chats.find((x) => x.otherUser._id === targetId);
   if (selected) {
     const chatRes = await fetch(
-      'http://localhost:3000/api/chats/' + selected._id,
+      "http://localhost:3000/api/chats/" + selected._id,
       {
         headers: {
-          Authorization: userToken
-        }
-      }
-    )
-    const chatData = await chatRes.json()
+          Authorization: userToken,
+        },
+      },
+    );
+    const chatData = await chatRes.json();
     if (chatData.ok) {
-      chatTitle.innerHTML = ''
-      chatTitle.innerHTML = selected.otherUser.username
+      chatTitle.innerHTML = "";
+      chatTitle.innerHTML = selected.otherUser.username;
       document
-        .getElementById('messageChatContainer')
-        .classList.remove('invisible')
+        .getElementById("messageChatContainer")
+        .classList.remove("invisible");
       document
-        .getElementById(selected.otherUser._id + '-chat')
-        .classList.add('active')
-      chatContainer.innerHTML = ''
+        .getElementById(selected.otherUser._id + "-chat")
+        .classList.add("active");
+      chatContainer.innerHTML = "";
       chatData.data.forEach((msg) => {
         chatContainer.innerHTML += messageTemplate(
           msg.sender === userData._id,
-          msg.content
-        )
-      })
+          msg.content,
+        );
+      });
 
-      chatContainer.scrollTop = chatContainer.scrollHeight
+      chatContainer.scrollTop = chatContainer.scrollHeight;
     }
   }
-}
+};
 
 const getChats = async () => {
-  const chatRes = await fetch('http://localhost:3000/api/chats', {
+  const chatRes = await fetch("http://localhost:3000/api/chats", {
     headers: {
-      Authorization: userToken
-    }
-  })
-  const chatData = await chatRes.json()
+      Authorization: userToken,
+    },
+  });
+  const chatData = await chatRes.json();
   chatData.data = chatData.data.map((x) => {
     return {
       ...x,
-      otherUser: x.users.filter((x) => x._id !== userData._id)[0]
-    }
-  })
+      otherUser: x.users.filter((x) => x._id !== userData._id)[0],
+    };
+  });
 
   if (chatData.data.length <= 0) {
-    chatsContainer.innerHTML = 'NO TIENES NINGUN MATCH!'
+    chatsContainer.innerHTML = "NO TIENES NINGUN MATCH!";
 
-    return
+    return;
   }
 
-  let chatsHtml = ''
+  let chatsHtml = "";
   chatData.data.forEach((x) => {
-    chatsHtml += chatTemplate(x.otherUser)
-  })
+    chatsHtml += chatTemplate(x.otherUser);
+  });
 
-  chats = chatData.data
+  chats = chatData.data;
 
-  chatsContainer.innerHTML = chatsHtml
-}
+  chatsContainer.innerHTML = chatsHtml;
+};
 
-getChats()
+getChats();
 
 sendBtn.onclick = (e) => {
-  e.preventDefault()
-  if (!selectedChat) return
-  const selected = chats.find((x) => x.otherUser._id === selectedChat)
+  e.preventDefault();
+  if (!selectedChat) return;
+  const selected = chats.find((x) => x.otherUser._id === selectedChat);
   if (selected) {
-    socket.emit('message', {
+    socket.emit("message", {
       chatId: selected._id,
       targetId: selectedChat,
-      message: msgInput.value
-    })
+      message: msgInput.value,
+    });
 
-    chatContainer.innerHTML += messageTemplate(true, msgInput.value)
-    chatContainer.scrollTop = chatContainer.scrollHeight
+    chatContainer.innerHTML += messageTemplate(true, msgInput.value);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
   }
-}
+};
