@@ -1,0 +1,29 @@
+name: Conventional Commits
+
+on:
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  commitlint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Importante: para acceder a todos los commits
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install commitlint and conventional config
+        run: |
+          npm install --global @commitlint/{cli,config-conventional}
+
+      - name: Lint PR commits with commitlint
+        run: |
+          git log origin/master..HEAD --pretty=format:"%s" | while read line; do
+            echo "$line" | commitlint
+          done
