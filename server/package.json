@@ -7,9 +7,7 @@
     "dev": "cross-env NODE_ENV=dev nodemon index.js",
     "start": "cross-env NODE_ENV=prod nodemon index.js",
     "fix": "eslint . --fix",
-    "fix:prettier": "prettier --write .",
-    "lint": "eslint",
-    "check:prettier": "prettier --check ."
+    "fix:prettier": "prettier --write ."
   },
   "author": "",
   "license": "ISC",
