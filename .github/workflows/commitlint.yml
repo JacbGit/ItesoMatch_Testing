@@ -7,11 +7,12 @@ on:
 jobs:
   commitlint:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0 # Necesario para ver el historial de commits
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -24,9 +25,6 @@ jobs:
         run: npm ci
         working-directory: ./server
 
-      - name: Lint PR commits with commitlint
-        run: |
-          git log origin/master..HEAD --pretty=format:"%s" | while read line; do
-            echo "$line" | npx commitlint
-          done
+      - name: Run commitlint on PR commits
+        run: npx commitlint --from=origin/master --to=HEAD --verbose
         working-directory: ./server
