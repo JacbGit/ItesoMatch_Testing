@@ -1,32 +1,33 @@
-const userToken = localStorage.getItem('token')
-const userData = JSON.parse(localStorage.getItem('userData'))
-let matches = []
+const userToken = localStorage.getItem("token");
+let matches = [];
 
-const loader = document.getElementById('bgloader')
-window.addEventListener('load', function () {
-  loader.style.display = 'none'
-})
+const loader = document.getElementById("bgloader");
+window.addEventListener("load", function () {
+  loader.style.display = "none";
+});
 
 const checkToken = async () => {
-  const token = localStorage.getItem('token')
-  if (!token) { return false }
-
-  const tokenRes = await fetch('http://localhost:3000/api/users/checkToken', {
-    headers: {
-      Authorization: token
-    }
-  })
-  console.log(tokenRes.ok)
-  const tokenData = await tokenRes.json()
-  console.log(tokenData)
-  return tokenData.ok
-}
-
-checkToken().then(x => {
-  if (!x) {
-    window.location = '/client/views/home.html'
+  const token = localStorage.getItem("token");
+  if (!token) {
+    return false;
   }
-})
+
+  const tokenRes = await fetch("http://localhost:3000/api/users/checkToken", {
+    headers: {
+      Authorization: token,
+    },
+  });
+  console.log(tokenRes.ok);
+  const tokenData = await tokenRes.json();
+  console.log(tokenData);
+  return tokenData.ok;
+};
+
+checkToken().then((x) => {
+  if (!x) {
+    window.location = "/client/views/home.html";
+  }
+});
 
 const cardTemplate = (user) => String.raw`
 <div>
@@ -56,95 +57,98 @@ const cardTemplate = (user) => String.raw`
         <p id="swipeText" class="text-white"></p>
     </div>
 </div>
-`
+`;
 
-let card = null
+let card = null;
 
-let cardLeftTrigger = null
+let cardLeftTrigger = null;
 
-let cardRightTrigger = null
+let cardRightTrigger = null;
 
-let swipeText = null
+let swipeText = null;
 
 const updateMatchCard = () => {
-  document.querySelector('#swipeContainer').innerHTML = cardTemplate(matches[0].user)
-  document.querySelector('#descriptionCard').innerHTML = `
+  document.querySelector("#swipeContainer").innerHTML = cardTemplate(
+    matches[0].user,
+  );
+  document.querySelector("#descriptionCard").innerHTML = `
   <h3>${matches[0].user.name} - ${matches[0].user.age}</h3>
   <hr>
   <p style="max-width=100%; word-wrap: break-word;">${matches[0].user.tags}</p>
-  `
-  card = document.getElementById('card')
+  `;
+  card = document.getElementById("card");
 
-  cardLeftTrigger = document.getElementById('cardLeftTrigger')
-  cardLeftTrigger.addEventListener('mouseover', onMouseHoverLeft)
-  cardLeftTrigger.addEventListener('mouseout', onMouseOutLeft)
-  cardLeftTrigger.addEventListener('click', onClickLeft)
+  cardLeftTrigger = document.getElementById("cardLeftTrigger");
+  cardLeftTrigger.addEventListener("mouseover", onMouseHoverLeft);
+  cardLeftTrigger.addEventListener("mouseout", onMouseOutLeft);
+  cardLeftTrigger.addEventListener("click", onClickLeft);
 
-  cardRightTrigger = document.getElementById('cardRightTrigger')
-  cardRightTrigger.addEventListener('mouseover', onMouseHoverRight)
-  cardRightTrigger.addEventListener('mouseout', onMouseOutRight)
+  cardRightTrigger = document.getElementById("cardRightTrigger");
+  cardRightTrigger.addEventListener("mouseover", onMouseHoverRight);
+  cardRightTrigger.addEventListener("mouseout", onMouseOutRight);
 
-  swipeText = document.getElementById('swipeText')
-}
+  swipeText = document.getElementById("swipeText");
+};
 
 const getMatches = async () => {
-  const matchRes = await fetch('http://localhost:3000/api/swipe/top_matches', {
-    headers: {
-      Authorization: userToken
-    }
-  })
-  const matchData = await matchRes.json()
-  console.log(matchData)
-  matches = matchData
-  updateMatchCard()
-}
-getMatches()
-
-function onMouseHoverLeft () {
-  card.classList.add('card__animate--left')
-}
-
-function onMouseOutLeft (e) {
-  card.classList.remove('card__animate--left')
-}
-
-function onMouseHoverRight () {
-  card.classList.add('card__animate--right')
-}
-
-function onMouseOutRight (e) {
-  card.classList.remove('card__animate--right')
-}
-
-function onClickLeft () {
-  swipeText.innerText = 'No match!'
-  card.classList.add('fade__animation')
-  card.classList.add('fade__out')
-  setTimeout(() => {
-    swipeText.innerText = ''
-    card.classList.remove('fade__out')
-    matches.shift()
-    updateMatchCard()
-  }, 1000)
-}
-
-async function onClickRight (userId) {
-  swipeText.innerText = 'Match!'
-  card.classList.add('fade__animation')
-  card.classList.add('fade__out')
-  await fetch('http://localhost:3000/api/swipe/like_user', {
-    method: 'POST',
+  const matchRes = await fetch("http://localhost:3000/api/swipe/top_matches", {
     headers: {
       Authorization: userToken,
-      'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ targetUser: userId })
-  })
+  });
+  const matchData = await matchRes.json();
+  console.log(matchData);
+  matches = matchData;
+  updateMatchCard();
+};
+getMatches();
+
+function onMouseHoverLeft() {
+  card.classList.add("card__animate--left");
+}
+
+function onMouseOutLeft(e) {
+  card.classList.remove("card__animate--left");
+}
+
+function onMouseHoverRight() {
+  card.classList.add("card__animate--right");
+}
+
+function onMouseOutRight(e) {
+  card.classList.remove("card__animate--right");
+}
+
+function onClickLeft() {
+  swipeText.innerText = "No match!";
+  card.classList.add("fade__animation");
+  card.classList.add("fade__out");
+  setTimeout(() => {
+    swipeText.innerText = "";
+    card.classList.remove("fade__out");
+    matches.shift();
+    updateMatchCard();
+  }, 1000);
+}
+
+// eslint-disable-next-line no-unused-vars
+async function onClickRight(userId) {
+  swipeText.innerText = "Match!";
+  card.classList.add("fade__animation");
+  card.classList.add("fade__out");
+  await fetch("http://localhost:3000/api/swipe/like_user", {
+    method: "POST",
+    headers: {
+      Authorization: userToken,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ targetUser: userId }),
+  });
 
   setTimeout(() => {
-    swipeText.innerText = ''
-    card.classList.remove('fade__out')
-    matches.shift()
-    updateMatchCard()
-  }, 1000)
+    swipeText.innerText = "";
+    card.classList.remove("fade__out");
+    matches.shift();
+    updateMatchCard();
+  }, 1000);
 }

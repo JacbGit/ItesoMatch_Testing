@@ -1,124 +1,123 @@
-.main{
-    background-color:#393E46;
+.main {
+  background-color: #393e46;
 }
-.icon-bar{
-    width: 4%;
-    height: 4%;
-    min-height: 50px;
-    min-width: 60px;
+.icon-bar {
+  width: 4%;
+  height: 4%;
+  min-height: 50px;
+  min-width: 60px;
 }
-.mainimage{
-    width: 25%;
-    height: auto;
-    min-width: 600px;
-
+.mainimage {
+  width: 25%;
+  height: auto;
+  min-width: 600px;
 }
-.center{
-    max-width: fit-content;
-    margin: auto;
+.center {
+  max-width: fit-content;
+  margin: auto;
 }
 
 .rcorners1 {
-    border-radius: 25px;
-    background: linear-gradient(#C00000,#5B0054);
-    padding: 20px;
-    width: 200px;
-    height: 150px;
+  border-radius: 25px;
+  background: linear-gradient(#c00000, #5b0054);
+  padding: 20px;
+  width: 200px;
+  height: 150px;
 }
 
-.img-fluid{
-    width: 200%;
-    height: auto;
+.img-fluid {
+  width: 200%;
+  height: auto;
 }
 
-.container{
-    height: 100vh;
-    height: 100%;
+.container {
+  height: 100vh;
+  height: 100%;
 }
 
 .custom-box {
-    height: 100%;
-    padding: 20px;
-    color: white;
+  height: 100%;
+  padding: 20px;
+  color: white;
 }
 
 .button-crear {
-    font-size: 1.5em;
-    padding: 10%;
-    margin: 8%;
+  font-size: 1.5em;
+  padding: 10%;
+  margin: 8%;
 }
 
-.icon-modal{
-    width: 1%;
-    height: auto;
-    min-width: 40px;
+.icon-modal {
+  width: 1%;
+  height: auto;
+  min-width: 40px;
 }
 
 .modal-dialog {
-    display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
-    min-height: 100vh; /* Altura mínima toma toda la pantalla */
-    padding-bottom: 10vh;
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  min-height: 100vh; /* Altura mínima toma toda la pantalla */
+  padding-bottom: 10vh;
 }
 
 .modal-content {
-    outline: .5em solid #5B0054; /* Contorno grueso */
-    width: 75%; /* Ancho del modal */
+  outline: 0.5em solid #5b0054; /* Contorno grueso */
+  width: 75%; /* Ancho del modal */
 }
 
 .center-button {
-    display: block; /* Hace que el botón sea un bloque para aplicar márgenes automáticos */
-    margin: 0 auto; /* Centra el botón horizontalmente */
+  display: block; /* Hace que el botón sea un bloque para aplicar márgenes automáticos */
+  margin: 0 auto; /* Centra el botón horizontalmente */
 }
 
 /* Para tags modal*/
 .badge {
-    background-color: #02112E;
-    margin: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  background-color: #02112e;
+  margin: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .badge:hover {
-    background-color: #5B0054;  /* Oscurecer la etiqueta al pasar el mouse */
+  background-color: #5b0054; /* Oscurecer la etiqueta al pasar el mouse */
 }
 
 .close-icon {
-    color: white;
-    font-size: 0.8em;
-    margin-left: 10px;
+  color: white;
+  font-size: 0.8em;
+  margin-left: 10px;
 }
 
 #selectedTags {
-    margin-top: 10px;
-    font-size: 0.9em;
-    color: #666;
+  margin-top: 10px;
+  font-size: 0.9em;
+  color: #666;
 }
 
 .fa-user {
-    color: #ffffff; 
+  color: #ffffff;
 }
 
 .fa-user:hover {
-    color: #FF0000; 
+  color: #ff0000;
 }
 
 .form-container {
-    width: 80%; /* Controla el ancho del contenedor */
-    margin-left: auto; /* Centrado horizontal */
-    margin-right: auto; /* Centrado horizontal */
+  width: 80%; /* Controla el ancho del contenedor */
+  margin-left: auto; /* Centrado horizontal */
+  margin-right: auto; /* Centrado horizontal */
 }
 
 .form-container {
-    background-color: rgba(255, 255, 255, 0.8); 
-    padding: 20px; 
-    border-radius: 10px; /* Bordes redondeados */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
-    margin-top: 20px; 
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
 }
 
 body {
-    background-color: #393E46; /* Fondo oscuro del cuerpo de la página */
-    color: #5B0054; /* Color de texto principal */
+  background-color: #393e46; /* Fondo oscuro del cuerpo de la página */
+  color: #5b0054; /* Color de texto principal */
 }
