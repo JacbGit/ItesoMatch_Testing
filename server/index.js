@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { DB_URI, PORT } = require("./utils/config");
 const server = require("./app");
 
-const mongoDB = DB_URI;
+const  mongoDB = DB_URI;
 
 main().catch((err) => console.log(err));
 
