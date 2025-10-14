@@ -2,7 +2,6 @@ const userToken = localStorage.getItem('token')
 const userData = JSON.parse(localStorage.getItem('userData'))
 let selectedChat = null
 let chats = []
-const curChatData = {}
 
 const checkToken = async () => {
   const token = localStorage.getItem('token')
@@ -24,7 +23,7 @@ checkToken().then(x => {
     window.location = '/client/views/home.html'
   }
 })
-
+/* global io */
 const socket = io('wss://localhost:3000', {
   auth: {
     token: userToken
@@ -36,8 +35,8 @@ socket.on('connect_error', (error) => {
 })
 
 socket.on('new-message', ({ chatId, message }) => {
-  const selected = chats.find(x => x.otherUser._id == selectedChat)
-  if (chatId != selected._id) return
+  const selected = chats.find(x => x.otherUser._id === selectedChat)
+  if (chatId !== selected._id) return
   chatContainer.innerHTML += messageTemplate(false, message)
   chatContainer.scrollTop = chatContainer.scrollHeight
 })
@@ -74,10 +73,11 @@ const chatTitle = document.getElementById('chatTitle')
 const msgInput = document.getElementById('msgInput')
 const sendBtn = document.getElementById('sendBtn')
 
+// eslint-disable-next-line no-unused-vars
 const selectChat = async (targetId) => {
   if (selectedChat) { document.getElementById(selectedChat + '-chat').classList.remove('active') }
   selectedChat = targetId
-  const selected = chats.find(x => x.otherUser._id == targetId)
+  const selected = chats.find(x => x.otherUser._id === targetId)
   if (selected) {
     const chatRes = await fetch('http://localhost:3000/api/chats/' + selected._id, {
       headers: {
@@ -92,7 +92,7 @@ const selectChat = async (targetId) => {
       document.getElementById(selected.otherUser._id + '-chat').classList.add('active')
       chatContainer.innerHTML = ''
       chatData.data.forEach(msg => {
-        chatContainer.innerHTML += messageTemplate(msg.sender == userData._id, msg.content)
+        chatContainer.innerHTML += messageTemplate(msg.sender === userData._id, msg.content)
       })
 
       chatContainer.scrollTop = chatContainer.scrollHeight
@@ -110,7 +110,7 @@ const getChats = async () => {
   chatData.data = chatData.data.map(x => {
     return {
       ...x,
-      otherUser: x.users.filter(x => x._id != userData._id)[0]
+      otherUser: x.users.filter(x => x._id !== userData._id)[0]
     }
   })
 
@@ -135,7 +135,7 @@ getChats()
 sendBtn.onclick = (e) => {
   e.preventDefault()
   if (!selectedChat) return
-  const selected = chats.find(x => x.otherUser._id == selectedChat)
+  const selected = chats.find(x => x.otherUser._id === selectedChat)
   if (selected) {
     socket.emit('message', { chatId: selected._id, targetId: selectedChat, message: msgInput.value })
 

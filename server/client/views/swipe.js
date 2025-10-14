@@ -1,5 +1,4 @@
 const userToken = localStorage.getItem('token')
-const userData = JSON.parse(localStorage.getItem('userData'))
 let matches = []
 
 const loader = document.getElementById('bgloader')
@@ -128,6 +127,7 @@ function onClickLeft () {
   }, 1000)
 }
 
+// eslint-disable-next-line no-unused-vars
 async function onClickRight (userId) {
   swipeText.innerText = 'Match!'
   card.classList.add('fade__animation')

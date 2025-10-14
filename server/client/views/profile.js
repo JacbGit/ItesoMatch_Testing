@@ -46,7 +46,6 @@ document.addEventListener('DOMContentLoaded', function () {
       event.preventDefault()
 
       const userId = userData._id
-      const token = localStorage.getItem('token')
       const updatedData = {
         age: document.getElementById('age').value,
         name: document.getElementById('name').value,
@@ -81,6 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 })
 
+// eslint-disable-next-line no-unused-vars
 function deleteprofile () {
   fetch(`http://localhost:3000/api/users/${userData._id}`, {
     method: 'DELETE',

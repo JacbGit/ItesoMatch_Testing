@@ -106,6 +106,7 @@ document.getElementById('RegisterForm').addEventListener('submit', function (eve
 })
 
 // Función para inicializar las etiquetas
+// eslint-disable-next-line no-unused-vars
 function initializeTags () {
   const container = document.getElementById('tagsList')
   container.innerHTML = ''
@@ -135,6 +136,7 @@ function moveTag (tag) {
 }
 
 // Función para sacar la info de los tags seleccionados
+// eslint-disable-next-line no-unused-vars
 function submitTags () {
   const selectedTags = Array.from(document.querySelectorAll('#selectedTags .badge')).map(el => el.getAttribute('data-tag'))
   console.log('Etiquetas seleccionadas:', selectedTags)
