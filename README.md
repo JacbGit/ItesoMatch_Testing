@@ -10,7 +10,7 @@
 
 ## Descripción
 
-**ITESOMatch** es una aplicación web de matching social diseñada específicamente para estudiantes del ITESO. Similar a aplicaciones de citas, ITESOMatch permite a los estudiantes conectarse con compañeros que comparten intereses académicos y personales similares mediante un sistema de swipe y matching basado en etiquetas (tags).
+**ITESOMatch** es una aplicación web de matching social diseñada específicamente para los estudiantes del ITESO. Similar a aplicaciones de citas, ITESOMatch permite a los estudiantes conectarse con compañeros que comparten intereses académicos y personales similares mediante un sistema de swipe y matching basado en etiquetas (tags).
 
 La plataforma ofrece un ambiente seguro y exclusivo para la comunidad Itesiana donde los estudiantes pueden:
 - Descubrir otros estudiantes con intereses similares
