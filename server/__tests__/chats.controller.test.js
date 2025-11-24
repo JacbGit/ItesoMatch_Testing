@@ -1,4 +1,8 @@
-const { getAllChats, getMessagesFromChat, sendMessageToChat } = require("../modules/chats/chats.controller");
+const {
+  getAllChats,
+  getMessagesFromChat,
+  sendMessageToChat,
+} = require("../modules/chats/chats.controller");
 
 const Chats = require("../modules/chats/chats.model");
 const Messages = require("../modules/messages/messages.model");
@@ -16,7 +20,6 @@ const mockResponse = () => {
 };
 
 describe("getAllChats", () => {
-
   it("should return only chats with at least 2 users", async () => {
     const req = { user: { _id: "user123" } };
     const res = mockResponse();
@@ -66,9 +69,7 @@ describe("getAllChats", () => {
   });
 });
 
-
 describe("getMessagesFromChat", () => {
-
   it("should return 400 if the chat does not exist or does not belong to the user", async () => {
     const req = { user: { _id: "user123" }, params: { id: "chat123" } };
     const res = mockResponse();
@@ -131,17 +132,14 @@ describe("getMessagesFromChat", () => {
     Chats.findOne.mockResolvedValue({ _id: "chat123", users: ["user123"] });
 
     Messages.find.mockReturnValue({
-        sort: jest.fn().mockRejectedValue(new Error("DB error")),
+      sort: jest.fn().mockRejectedValue(new Error("DB error")),
     });
 
     await expect(getMessagesFromChat(req, res)).rejects.toThrow("DB error");
   });
-
 });
 
-
 describe("sendMessageToChat", () => {
-
   it("should create a new message", async () => {
     Messages.create.mockResolvedValue({});
 
@@ -158,25 +156,21 @@ describe("sendMessageToChat", () => {
     Messages.create.mockRejectedValue(new Error("DB error"));
 
     await expect(
-      sendMessageToChat("user123", "chat123", "Hola!")
+      sendMessageToChat("user123", "chat123", "Hola!"),
     ).rejects.toThrow("DB error");
   });
 
   it("should fail if the message is missing", async () => {
     await expect(
-      sendMessageToChat("user123", "chat123", null)
+      sendMessageToChat("user123", "chat123", null),
     ).rejects.toThrow();
   });
 
   it("should fail if chatId is missing", async () => {
-    await expect(
-      sendMessageToChat("user123", null, "Hola")
-    ).rejects.toThrow();
+    await expect(sendMessageToChat("user123", null, "Hola")).rejects.toThrow();
   });
 
   it("should fail if userId is missing", async () => {
-    await expect(
-      sendMessageToChat(null, "chat123", "Hola")
-    ).rejects.toThrow();
+    await expect(sendMessageToChat(null, "chat123", "Hola")).rejects.toThrow();
   });
 });
