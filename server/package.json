@@ -6,6 +6,9 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=dev nodemon index.js",
     "start": "cross-env NODE_ENV=prod nodemon index.js",
+    "test": "jest --verbose",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "fix": "eslint . --fix",
     "fix:prettier": "prettier --write .",
     "lint": "eslint .",
@@ -35,7 +38,9 @@
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-n": "^16.6.2",
     "eslint-plugin-promise": "^6.1.1",
+    "jest": "^30.2.0",
     "nodemon": "^3.1.0",
-    "prettier": "^3.6.2"
+    "prettier": "^3.6.2",
+    "supertest": "^7.1.4"
   }
 }
