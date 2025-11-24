@@ -413,7 +413,3 @@ Para preguntas o sugerencias sobre el proyecto, por favor abre un Issue en el re
 Por si sale un error de que el puerto ya está en uso (detiene todos los procesos de node para liberar el puerto)
 
 Get-Process -Name node | Stop-Process -Force
-
-Para ejecutar las pruebas de backend:
-cd server
-npm test
