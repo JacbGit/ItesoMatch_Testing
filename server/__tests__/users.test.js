@@ -4,12 +4,11 @@ const Users = require("../modules/users/users.model");
 const bcrypt = require("bcrypt");
 
 describe("Users API - Login Endpoint", () => {
-  let testUser;
 
   beforeAll(async () => {
     await Users.deleteMany({ username: /^testuser/ });
 
-    testUser = await Users.create({
+    let testUser = await Users.create({
       username: "testuser_login",
       age: 20,
       name: "Test User",
