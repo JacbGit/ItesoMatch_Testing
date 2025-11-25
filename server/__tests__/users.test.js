@@ -7,8 +7,8 @@ describe("Users API - Login Endpoint", () => {
 
   beforeAll(async () => {
     await Users.deleteMany({ username: /^testuser/ });
-
-    let testUser = await Users.create({
+  
+    await Users.create({
       username: "testuser_login",
       age: 20,
       name: "Test User",
