@@ -151,7 +151,7 @@ describe("Users API - Register Endpoint", () => {
   });
 
   describe("POST /api/users", () => {
-    test.skip("should return error when image is missing - SKIPPED: controller bug", async () => {
+    test("should return error when image is missing", async () => {
       const response = await request(app)
         .post("/api/users")
         .field("username", "testregister_noimage")
