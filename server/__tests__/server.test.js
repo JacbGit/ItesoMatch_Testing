@@ -279,5 +279,79 @@ describe("Socket.IO Server Tests", () => {
         message,
       );
     });
+
+    test("should NOT send message or emit event if chat does not exist or user is not a participant", async () => {
+      const chatId = "invalid-chat";
+      const targetId = "user456";
+      const message = "Hacking attempt!";
+
+      // Simulamos que NO se encuentra el chat (devuelve null)
+      mockChats.findOne.mockResolvedValue(null);
+
+      const messageHandler = async (data) => {
+        const { chatId, targetId, message } = data;
+        try {
+          if (
+            !(await mockChats.findOne({
+              _id: chatId,
+              users: { $all: [targetId, socket.user._id] },
+            }))
+          ) {
+            throw Error("Chat doesnt exist");
+          }
+          const targetSocket = socketConnections[targetId];
+          if (targetSocket) {
+            mockIo.to(targetSocket).emit("new-message", { chatId, message });
+          }
+          await mockSendMessageToChat(socket.user._id, chatId, message);
+        } catch (error) {}
+      };
+
+      await messageHandler({ chatId, targetId, message });
+
+      expect(mockChats.findOne).toHaveBeenCalledWith({
+        _id: chatId,
+        users: { $all: [targetId, "user123"] },
+      });
+      expect(mockIo.emit).not.toHaveBeenCalled();
+      expect(mockSendMessageToChat).not.toHaveBeenCalled();
+    });
+
+    test("should handle database errors gracefully without crashing", async () => {
+      const chatId = "chat123";
+      const targetId = "user456";
+      const message = "Hello";
+
+      // Simulamos que la base de datos falla
+      mockChats.findOne.mockRejectedValue(
+        new Error("Database connection failed"),
+      );
+
+      const messageHandler = async (data) => {
+        const { chatId, targetId, message } = data;
+        try {
+          if (
+            !(await mockChats.findOne({
+              _id: chatId,
+              users: { $all: [targetId, socket.user._id] },
+            }))
+          ) {
+            throw Error("Chat doesnt exist");
+          }
+          const targetSocket = socketConnections[targetId];
+          if (targetSocket) {
+            mockIo.to(targetSocket).emit("new-message", { chatId, message });
+          }
+          await mockSendMessageToChat(socket.user._id, chatId, message);
+        } catch (error) {}
+      };
+
+      // Ejecutamos para asegurar que el catch funciona
+      await expect(
+        messageHandler({ chatId, targetId, message }),
+      ).resolves.not.toThrow();
+
+      expect(mockIo.emit).not.toHaveBeenCalled();
+    });
   });
 });
