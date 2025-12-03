@@ -12,5 +12,3 @@ async function main() {
     console.log("Server listening on http://localhost:3000");
   });
 }
-
-main();

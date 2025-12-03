@@ -10,14 +10,11 @@ const getUsers = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
-  const { image } = req.files;
-  console.log(image);
-  const { username, age, name, email, expediente, phone, password, tags } =
-    req.body;
-
   try {
-    if (!image) return res.sendStatus(400);
-
+    const { image } = req.files;
+    console.log(image);
+    const { username, age, name, email, expediente, phone, password, tags } =
+      req.body;
     // If does not have image mime type prevent from uploading
 
     // Move the uploaded image to our upload folder
