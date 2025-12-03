@@ -10,10 +10,21 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    services:
+      mongodb:
+        image: mongo:5.0
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "mongosh --eval 'db.adminCommand({ping: 1})'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     env:
       NODE_ENV: dev
-      DB_URI_DEV: ${{ secrets.DB_URI_DEV }}
-      DB_URI: ${{ secrets.DB_URI }}
+      DB_URI_DEV: mongodb://localhost:27017/itesoMatch_test
+      DB_URI: mongodb://localhost:27017/itesoMatch_test
       JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
     permissions:
