@@ -9,6 +9,7 @@ module.exports = {
     "utils/**/*.js",
     "!**/node_modules/**",
   ],
+  coverageReporters: ["json", "json-summary", "lcov", "text", "html"],
   verbose: true,
   testTimeout: 15000,
 };

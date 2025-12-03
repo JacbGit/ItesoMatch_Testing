@@ -414,15 +414,52 @@ Por si sale un error de que el puerto ya está en uso (detiene todos los proceso
 
 Get-Process -Name node | Stop-Process -Force
 
+---
 
-# TESTs
-  ### ↓↓↓ !Porfavor asegurate de tener el mongo corriendo ¡ ↓↓↓
+# Tests
 
-## jtest
-  Ir a la carpeta server
-    -correr el comando: npm run test:coverage
-## selenium
-  Ir a la carpeta server/client/selenium/features 
-    - correr el comando: behave
-    - o
-    - behave "nombre_del_feature_especifico"
+### IMPORTANTE: Asegúrate de tener MongoDB corriendo en un contenedor de Docker antes de ejecutar los tests o todo fallará
+
+## Tests Unitarios y de Integración (Jest)
+
+### Ejecutar todos los tests
+```bash
+cd server
+npm test
+```
+
+### Ejecutar tests con cobertura
+```bash
+cd server
+npm run test:coverage
+```
+
+Este comando genera:
+- Reporte en consola con métricas de cobertura
+- Reporte HTML en `server/coverage/lcov-report/index.html`
+- Falla si la cobertura es menor al 70%
+
+### Ver reporte de cobertura en el navegador
+```bash
+start server/coverage/lcov-report/index.html
+```
+
+## Tests de Sistema (Selenium + BDD)
+
+### Ejecutar todos los tests de Selenium
+```bash
+cd server/client/selenium/features
+behave
+```
+
+### Ejecutar un feature específico
+```bash
+cd server/client/selenium/features
+behave home.feature
+# o
+behave register.feature
+# o
+behave profile.feature
+# o
+behave swipe.feature
+```
