@@ -413,3 +413,16 @@ Para preguntas o sugerencias sobre el proyecto, por favor abre un Issue en el re
 Por si sale un error de que el puerto ya está en uso (detiene todos los procesos de node para liberar el puerto)
 
 Get-Process -Name node | Stop-Process -Force
+
+
+# TESTs
+  ### ↓↓↓ !Porfavor asegurate de tener el mongo corriendo ¡ ↓↓↓
+
+## jtest
+  Ir a la carpeta server
+    -correr el comando: npm run test:coverage
+## selenium
+  Ir a la carpeta server/client/selenium/features 
+    - correr el comando: behave
+    - o
+    - behave "nombre_del_feature_especifico"
