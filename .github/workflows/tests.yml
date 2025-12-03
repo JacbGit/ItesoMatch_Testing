@@ -10,19 +10,25 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    env:
+      NODE_ENV: dev
+      DB_URI_DEV: ${{ secrets.DB_URI_DEV }}
+      DB_URI: ${{ secrets.DB_URI }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Install dependencies
+      - name: Install deps
         run: npm install
         working-directory: ./server
 
       - name: Run tests
         run: npm test
         working-directory: ./server
+
