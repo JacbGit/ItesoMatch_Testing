@@ -133,7 +133,7 @@ describe("getTopMatches", () =>{
 
         await getTopMatches(req, res);
 
-        // Verificar Users.find
+        // Verificar Users find
         expect(Users.find).toHaveBeenCalled();
         const callArg = Users.find.mock.calls[0][0];
         expect(callArg._id.$nin).toBeDefined();
