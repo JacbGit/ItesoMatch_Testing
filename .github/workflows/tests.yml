@@ -16,8 +16,14 @@ jobs:
       DB_URI: ${{ secrets.DB_URI }}
       JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
+    permissions:
+      contents: read
+      pull-requests: write
+
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -28,7 +34,42 @@ jobs:
         run: npm install
         working-directory: ./server
 
-      - name: Run tests
-        run: npm test
+      - name: Run tests with coverage
+        run: npm run test:coverage
+        working-directory: ./server
+
+      - name: Jest Coverage Report
+        uses: ArtiomTr/jest-coverage-report-action@v2
+        if: github.event_name == 'pull_request'
+        with:
+          working-directory: ./server
+          test-script: npm run test:coverage
+          annotations: failed-tests
+          coverage-file: ./coverage/coverage-summary.json
+          base-coverage-file: ./coverage/coverage-summary.json
+          prnumber: ${{ github.event.pull_request.number }}
+
+      - name: Check coverage threshold
+        run: |
+          COVERAGE=$(node -p "
+            const fs = require('fs');
+            const coverage = JSON.parse(fs.readFileSync('./coverage/coverage-summary.json', 'utf8'));
+            const total = coverage.total;
+            Math.min(
+              total.lines.pct,
+              total.statements.pct,
+              total.functions.pct,
+              total.branches.pct
+            ).toFixed(2);
+          ")
+          echo "Current minimum coverage: $COVERAGE%"
+
+          THRESHOLD=70
+          if (( $(echo "$COVERAGE < $THRESHOLD" | bc -l) )); then
+            echo "❌ Coverage $COVERAGE% is below minimum threshold of $THRESHOLD%"
+            exit 1
+          else
+            echo "✅ Coverage $COVERAGE% meets minimum threshold of $THRESHOLD%"
+          fi
         working-directory: ./server
 
