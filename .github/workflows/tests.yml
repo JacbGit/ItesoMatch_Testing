@@ -27,11 +27,6 @@ jobs:
       DB_URI: mongodb://localhost:27017/itesoMatch_test
       JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
-    permissions:
-      contents: read
-      pull-requests: write
-      checks: write
-
     steps:
       - uses: actions/checkout@v4
         with:
@@ -55,15 +50,6 @@ jobs:
       - name: Run tests with coverage
         run: npm run test:coverage
         working-directory: ./server
-
-      - name: Jest Coverage Comment
-        uses: ArtiomTr/jest-coverage-report-action@v2
-        if: github.event_name == 'pull_request'
-        with:
-          working-directory: ./server
-          skip-step: all
-          coverage-file: ./coverage/coverage-summary.json
-          base-coverage-file: ./coverage/coverage-summary.json
 
       - name: Check Coverage Threshold
         run: |
